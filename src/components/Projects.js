@@ -1,78 +1,115 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/data/siteData";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Projects() {
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const dividerRef = useRef(null);
+  const headerRef = useRef(null);
+  const gridRef = useRef(null);
 
   const displayProjects = projects.filter((p) => p.featured);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
+    const ctx = gsap.context(() => {
+      // Divider animation
+      gsap.fromTo(
+        dividerRef.current,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+          },
         }
-      },
-      { threshold: 0.1 }
-    );
+      );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+      // Header animations
+      const headerElements = headerRef.current.querySelectorAll(".header-animate");
+      gsap.fromTo(
+        headerElements,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+          },
+        }
+      );
 
-    return () => observer.disconnect();
+      // Project cards stagger
+      const cards = gridRef.current.querySelectorAll(".project-card");
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 60, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: "top 80%",
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section id="projects" className="section" ref={sectionRef}>
       <div className="container">
         {/* Section Divider */}
-        <div className="divider mb-16" />
+        <div
+          ref={dividerRef}
+          className="divider mb-16 origin-left"
+          style={{ transform: "scaleX(0)" }}
+        />
 
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+        <div
+          ref={headerRef}
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16"
+        >
           <div className="max-w-2xl">
-            <div
-              className={`flex items-center gap-3 mb-6 ${
-                isVisible ? "animate-fade-in-up" : "opacity-0"
-              }`}
-            >
+            <div className="header-animate flex items-center gap-3 mb-6 opacity-0">
               <span className="text-accent text-sm font-medium tracking-wide uppercase">
                 Projects
               </span>
               <span className="flex-1 h-px bg-border max-w-24" />
             </div>
 
-            <h2
-              className={`text-3xl md:text-4xl lg:text-5xl font-medium mb-4 ${
-                isVisible ? "animate-fade-in-up delay-100" : "opacity-0"
-              }`}
-            >
+            <h2 className="header-animate text-3xl md:text-4xl lg:text-5xl font-medium mb-4 opacity-0">
               Selected Work
             </h2>
 
-            <p
-              className={`text-muted text-lg ${
-                isVisible ? "animate-fade-in-up delay-200" : "opacity-0"
-              }`}
-            >
+            <p className="header-animate text-muted text-lg opacity-0">
               Projects that showcase my skills in building modern web experiences.
             </p>
           </div>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayProjects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              isVisible={isVisible}
-              delay={index}
-            />
+        <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       </div>
@@ -80,13 +117,9 @@ export default function Projects() {
   );
 }
 
-function ProjectCard({ project, isVisible, delay }) {
+function ProjectCard({ project }) {
   return (
-    <article
-      className={`group glass-card overflow-hidden ${
-        isVisible ? `animate-fade-in-up delay-${(delay + 3) * 100}` : "opacity-0"
-      }`}
-    >
+    <article className="project-card group glass-card overflow-hidden opacity-0">
       {/* Project Image */}
       <div className="aspect-video relative overflow-hidden bg-card">
         {project.image ? (

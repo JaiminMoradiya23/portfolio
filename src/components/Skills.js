@@ -1,7 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { skills } from "@/data/siteData";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const skillCategories = [
   { key: "frontend", label: "Frontend", icon: "code" },
@@ -37,61 +41,96 @@ const icons = {
 };
 
 export default function Skills() {
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const cardsRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
+    const ctx = gsap.context(() => {
+      // Header animations
+      const headerElements = headerRef.current.children;
+      gsap.fromTo(
+        headerElements,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+          },
         }
-      },
-      { threshold: 0.2 }
-    );
+      );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+      // Cards stagger animation
+      const cards = cardsRef.current.querySelectorAll(".skill-card");
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 50, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.12,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: cardsRef.current,
+            start: "top 80%",
+          },
+        }
+      );
 
-    return () => observer.disconnect();
+      // Animate skill items inside each card
+      cards.forEach((card, cardIndex) => {
+        const items = card.querySelectorAll(".skill-item");
+        gsap.fromTo(
+          items,
+          { opacity: 0, x: -15 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 75%",
+            },
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section id="skills" className="section" ref={sectionRef}>
       <div className="container">
         {/* Section Header */}
-        <div className="max-w-2xl mb-16">
-          <div
-            className={`flex items-center gap-3 mb-6 ${
-              isVisible ? "animate-fade-in-up" : "opacity-0"
-            }`}
-          >
+        <div ref={headerRef} className="max-w-2xl mb-16">
+          <div className="flex items-center gap-3 mb-6 opacity-0">
             <span className="text-accent text-sm font-medium tracking-wide uppercase">
               Skills
             </span>
             <span className="flex-1 h-px bg-border max-w-24" />
           </div>
 
-          <h2
-            className={`text-3xl md:text-4xl lg:text-5xl font-medium ${
-              isVisible ? "animate-fade-in-up delay-100" : "opacity-0"
-            }`}
-          >
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium opacity-0">
             Technologies I Work With
           </h2>
         </div>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((category, catIndex) => (
+        <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skillCategories.map((category) => (
             <div
               key={category.key}
-              className={`glass-card p-8 ${
-                isVisible
-                  ? `animate-fade-in-up delay-${(catIndex + 2) * 100}`
-                  : "opacity-0"
-              }`}
+              className="skill-card glass-card p-8 opacity-0"
             >
               {/* Category Header */}
               <div className="flex items-center gap-4 mb-8">
@@ -113,7 +152,7 @@ export default function Skills() {
                 {skills[category.key].map((skill, index) => (
                   <li
                     key={index}
-                    className="flex items-center gap-3 text-muted group"
+                    className="skill-item flex items-center gap-3 text-muted group opacity-0"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-accent/50 group-hover:bg-accent transition-colors" />
                     <span className="group-hover:text-foreground transition-colors">

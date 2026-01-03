@@ -1,29 +1,176 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { personalInfo, socialLinks } from "@/data/siteData";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Hero() {
-  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+  const greetingRef = useRef(null);
+  const nameRef = useRef(null);
+  const roleRef = useRef(null);
+  const taglineRef = useRef(null);
+  const ctaRef = useRef(null);
+  const socialsRef = useRef(null);
+  const badgeRef = useRef(null);
+  const glow1Ref = useRef(null);
+  const glow2Ref = useRef(null);
+  const scrollIndicatorRef = useRef(null);
 
   useEffect(() => {
-    setIsVisible(true);
+    const ctx = gsap.context(() => {
+      // Split name into words
+      const nameWords = nameRef.current.querySelectorAll(".word");
+      const roleWords = roleRef.current.querySelectorAll(".word");
+
+      // Create main timeline
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      // Greeting line
+      tl.fromTo(
+        greetingRef.current,
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.6 }
+      );
+
+      // Name words stagger
+      tl.fromTo(
+        nameWords,
+        { opacity: 0, y: 50, rotateX: -40 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          duration: 0.7,
+          stagger: 0.08,
+        },
+        "-=0.3"
+      );
+
+      // Role words stagger
+      tl.fromTo(
+        roleWords,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.06,
+        },
+        "-=0.4"
+      );
+
+      // Tagline
+      tl.fromTo(
+        taglineRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.6 },
+        "-=0.3"
+      );
+
+      // CTA buttons
+      tl.fromTo(
+        ctaRef.current.children,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
+        "-=0.2"
+      );
+
+      // Social links
+      tl.fromTo(
+        socialsRef.current.children,
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 0.4, stagger: 0.08 },
+        "-=0.3"
+      );
+
+      // Badge (float in from right)
+      tl.fromTo(
+        badgeRef.current,
+        { opacity: 0, x: 30 },
+        { opacity: 1, x: 0, duration: 0.6 },
+        "-=0.5"
+      );
+
+      // Scroll indicator
+      tl.fromTo(
+        scrollIndicatorRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5 },
+        "-=0.2"
+      );
+
+      // Parallax on glow elements
+      gsap.to(glow1Ref.current, {
+        y: 150,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.5,
+        },
+      });
+
+      gsap.to(glow2Ref.current, {
+        y: 100,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 2,
+        },
+      });
+
+      // Fade out hero content on scroll
+      gsap.to(sectionRef.current.querySelector(".hero-content"), {
+        opacity: 0.3,
+        y: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "50% top",
+          scrub: 1,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
-  return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/3 rounded-full blur-3xl pointer-events-none" />
+  // Helper to split text into word spans
+  const splitWords = (text) => {
+    return text.split(" ").map((word, i) => (
+      <span key={i} className="inline-block overflow-hidden mr-[0.25em]">
+        <span className="word inline-block">{word}</span>
+      </span>
+    ));
+  };
 
-      <div className="container relative z-10">
+  return (
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+    >
+      {/* Background Glow - with parallax */}
+      <div
+        ref={glow1Ref}
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none"
+      />
+      <div
+        ref={glow2Ref}
+        className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/3 rounded-full blur-3xl pointer-events-none"
+      />
+
+      <div className="container relative z-10 hero-content">
         <div className="max-w-4xl">
           {/* Greeting */}
-          <div
-            className={`flex items-center gap-3 mb-8 ${
-              isVisible ? "animate-fade-in-up" : "opacity-0"
-            }`}
-          >
+          <div ref={greetingRef} className="flex items-center gap-3 mb-8 opacity-0">
             <span className="w-12 h-px bg-accent" />
             <span className="text-accent text-sm font-medium tracking-wide uppercase">
               Hello!
@@ -33,38 +180,31 @@ export default function Hero() {
           {/* Main Heading */}
           <h1 className="space-y-2">
             <span
-              className={`block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium ${
-                isVisible ? "animate-fade-in-up delay-100" : "opacity-0"
-              }`}
+              ref={nameRef}
+              className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium"
+              style={{ perspective: "1000px" }}
             >
-              Hi! I&apos;m{" "}
-              <span className="text-accent">{personalInfo.name}</span>
+              {splitWords(`Hi! I'm ${personalInfo.name}`)}
             </span>
             <span
-              className={`block text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-muted font-medium ${
-                isVisible ? "animate-fade-in-up delay-200" : "opacity-0"
-              }`}
+              ref={roleRef}
+              className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-muted font-medium"
             >
-              {personalInfo.role}
+              {splitWords(personalInfo.role)}
             </span>
           </h1>
 
           {/* Description */}
           <p
-            className={`mt-8 text-lg md:text-xl text-muted max-w-2xl leading-relaxed ${
-              isVisible ? "animate-fade-in-up delay-300" : "opacity-0"
-            }`}
+            ref={taglineRef}
+            className="mt-8 text-lg md:text-xl text-muted max-w-2xl leading-relaxed opacity-0"
           >
             {personalInfo.tagline}
           </p>
 
           {/* CTA Buttons */}
-          <div
-            className={`flex flex-wrap gap-4 mt-10 ${
-              isVisible ? "animate-fade-in-up delay-400" : "opacity-0"
-            }`}
-          >
-            <a href="#projects" className="btn btn-primary">
+          <div ref={ctaRef} className="flex flex-wrap gap-4 mt-10">
+            <a href="#projects" className="btn btn-primary opacity-0">
               View Projects
               <svg
                 className="w-4 h-4"
@@ -80,17 +220,13 @@ export default function Hero() {
                 />
               </svg>
             </a>
-            <a href="#contact" className="btn btn-ghost">
+            <a href="#contact" className="btn btn-ghost opacity-0">
               Contact Me
             </a>
           </div>
 
           {/* Social Links */}
-          <div
-            className={`flex items-center gap-5 mt-12 ${
-              isVisible ? "animate-fade-in-up delay-500" : "opacity-0"
-            }`}
-          >
+          <div ref={socialsRef} className="flex items-center gap-5 mt-12">
             <SocialLink href={socialLinks.github} label="GitHub">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -121,7 +257,10 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+      <div
+        ref={scrollIndicatorRef}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-0"
+      >
         <span className="text-xs text-muted uppercase tracking-widest">
           Scroll
         </span>
@@ -130,8 +269,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-1/3 right-12 hidden lg:block">
+      {/* Decorative Badge */}
+      <div ref={badgeRef} className="absolute top-1/3 right-12 hidden lg:block opacity-0">
         <div className="glass-card p-4 animate-float">
           <div className="flex items-center gap-3">
             <span className="w-3 h-3 rounded-full bg-accent animate-pulse" />
@@ -149,7 +288,7 @@ function SocialLink({ href, label, children }) {
       href={href}
       target={href.startsWith("mailto") ? undefined : "_blank"}
       rel={href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-      className="w-10 h-10 flex items-center justify-center rounded-full border border-border text-muted hover:text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-300"
+      className="w-10 h-10 flex items-center justify-center rounded-full border border-border text-muted hover:text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-300 opacity-0"
       aria-label={label}
     >
       {children}
