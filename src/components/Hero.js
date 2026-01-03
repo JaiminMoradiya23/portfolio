@@ -155,7 +155,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-14 sm:pt-16 md:pt-20"
     >
       {/* Background Glow - with parallax */}
       <div
@@ -167,28 +167,28 @@ export default function Hero() {
         className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/3 rounded-full blur-3xl pointer-events-none"
       />
 
-      <div className="container relative z-10 hero-content">
+      <div className="container relative z-10 hero-content px-4 sm:px-6">
         <div className="max-w-4xl">
           {/* Greeting */}
-          <div ref={greetingRef} className="flex items-center gap-3 mb-8 opacity-0">
-            <span className="w-12 h-px bg-accent" />
-            <span className="text-accent text-sm font-medium tracking-wide uppercase">
+          <div ref={greetingRef} className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 md:mb-8 opacity-0">
+            <span className="w-8 sm:w-12 h-px bg-accent" />
+            <span className="text-accent text-xs sm:text-sm font-medium tracking-wide uppercase">
               Hello!
             </span>
           </div>
 
           {/* Main Heading */}
-          <h1 className="space-y-2">
+          <h1 className="space-y-1 sm:space-y-2">
             <span
               ref={nameRef}
-              className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium"
+              className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium leading-tight"
               style={{ perspective: "1000px" }}
             >
               {splitWords(`Hi! I'm ${personalInfo.name}`)}
             </span>
             <span
               ref={roleRef}
-              className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-muted font-medium"
+              className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-muted font-medium leading-tight"
             >
               {splitWords(personalInfo.role)}
             </span>
@@ -197,14 +197,14 @@ export default function Hero() {
           {/* Description */}
           <p
             ref={taglineRef}
-            className="mt-8 text-lg md:text-xl text-muted max-w-2xl leading-relaxed opacity-0"
+            className="mt-4 sm:mt-6 md:mt-8 text-base sm:text-lg md:text-xl text-muted max-w-2xl leading-relaxed opacity-0"
           >
             {personalInfo.tagline}
           </p>
 
           {/* CTA Buttons */}
-          <div ref={ctaRef} className="flex flex-wrap gap-4 mt-10">
-            <a href="#projects" className="btn btn-primary opacity-0">
+          <div ref={ctaRef} className="flex flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10">
+            <a href="#projects" className="btn btn-primary text-sm sm:text-base py-3 px-5 sm:py-3.5 sm:px-6 opacity-0">
               View Projects
               <svg
                 className="w-4 h-4"
@@ -220,13 +220,13 @@ export default function Hero() {
                 />
               </svg>
             </a>
-            <a href="#contact" className="btn btn-ghost opacity-0">
+            <a href="#contact" className="btn btn-ghost text-sm sm:text-base py-3 px-5 sm:py-3.5 sm:px-6 opacity-0">
               Contact Me
             </a>
           </div>
 
           {/* Social Links */}
-          <div ref={socialsRef} className="flex items-center gap-5 mt-12">
+          <div ref={socialsRef} className="flex items-center gap-3 sm:gap-5 mt-8 sm:mt-10 md:mt-12">
             <SocialLink href={socialLinks.github} label="GitHub">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -256,25 +256,25 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - Hidden on small screens */}
       <div
         ref={scrollIndicatorRef}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-0"
+        className="absolute bottom-6 sm:bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex-col items-center gap-2 sm:gap-3 opacity-0 hidden sm:flex"
       >
-        <span className="text-xs text-muted uppercase tracking-widest">
+        <span className="text-[10px] sm:text-xs text-muted uppercase tracking-widest">
           Scroll
         </span>
-        <div className="w-px h-12 relative overflow-hidden">
+        <div className="w-px h-8 sm:h-12 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-accent to-transparent animate-scroll" />
         </div>
       </div>
 
       {/* Decorative Badge */}
-      <div ref={badgeRef} className="absolute top-1/3 right-12 hidden lg:block opacity-0">
-        <div className="glass-card p-4 animate-float">
-          <div className="flex items-center gap-3">
-            <span className="w-3 h-3 rounded-full bg-accent animate-pulse" />
-            <span className="text-sm text-muted">{personalInfo.availability}</span>
+      <div ref={badgeRef} className="absolute top-1/3 right-4 sm:right-8 md:right-12 hidden xl:block opacity-0">
+        <div className="glass-card p-3 sm:p-4 animate-float">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-accent animate-pulse" />
+            <span className="text-xs sm:text-sm text-muted">{personalInfo.availability}</span>
           </div>
         </div>
       </div>
@@ -288,7 +288,7 @@ function SocialLink({ href, label, children }) {
       href={href}
       target={href.startsWith("mailto") ? undefined : "_blank"}
       rel={href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-      className="w-10 h-10 flex items-center justify-center rounded-full border border-border text-muted hover:text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-300 opacity-0"
+      className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full border border-border text-muted hover:text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-300 opacity-0"
       aria-label={label}
     >
       {children}
