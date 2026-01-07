@@ -7,16 +7,16 @@ export const personalInfo = {
   role: "Frontend Developer",
   tagline:
     "I craft fast, scalable, and immersive digital experiences that merge creativity with engineering precision.",
-  email: "your.email@example.com",
-  location: "Your City, Country",
+  email: "jaiminmoradiya23@gmail.com",
+  location: "India",
   availability: "Available for freelance",
 };
 
 export const socialLinks = {
-  github: "https://github.com/yourusername",
+  github: "https://github.com/JaiminMoradiya23",
   linkedin: "https://linkedin.com/in/yourusername",
   twitter: "https://twitter.com/yourusername",
-  email: "mailto:your.email@example.com",
+  email: "mailto:jaiminmoradiya23@gmail.com",
 };
 
 export const aboutContent = {
