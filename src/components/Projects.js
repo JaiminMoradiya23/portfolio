@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/data/siteData";
+import ImageCarousel from "@/components/ui/ImageCarousel";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -118,15 +119,22 @@ export default function Projects() {
 }
 
 function ProjectCard({ project }) {
+  const images = project.image || [];
+
   return (
     <article className="project-card group glass-card overflow-hidden opacity-0">
-      {/* Project Image */}
+      {/* Project Image / Carousel */}
       <div className="aspect-video relative overflow-hidden bg-card">
-        {project.image ? (
-          <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-            style={{ backgroundImage: `url(${project.image})` }}
-          />
+        {images.length > 1 ? (
+          <ImageCarousel images={images} />
+        ) : images.length === 1 ? (
+          <>
+            <div
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+              style={{ backgroundImage: `url(${images[0]})` }}
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
@@ -146,9 +154,6 @@ function ProjectCard({ project }) {
             </div>
           </div>
         )}
-
-        {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
 
       {/* Content */}

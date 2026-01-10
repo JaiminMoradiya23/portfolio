@@ -58,6 +58,7 @@ export const skills = {
   ],
 };
 
+// image: array of image paths (shows carousel if more than 1 image)
 export const projects = [
   {
     id: 1,
@@ -65,7 +66,7 @@ export const projects = [
     description:
       "A modern admin dashboard for e-commerce businesses with real-time analytics, order management, and inventory tracking.",
     tech: ["Next.js", "Tailwind CSS", "Chart.js", "REST API"],
-    image: "/projects/project-1.jpg",
+    image: ["/projects/project-1.jpg"],
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/yourusername/project",
     featured: true,
@@ -76,7 +77,7 @@ export const projects = [
     description:
       "A clean, minimalist task manager with drag-and-drop functionality, categories, and deadline reminders.",
     tech: ["React", "CSS Modules", "Local Storage"],
-    image: "/projects/project-2.jpg",
+    image: ["/projects/project-2.jpg"],
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/yourusername/project",
     featured: true,
@@ -87,7 +88,7 @@ export const projects = [
     description:
       "A beautiful weather app with location-based forecasts, hourly/weekly views, and smooth animations.",
     tech: ["JavaScript", "Weather API", "CSS3"],
-    image: "/projects/project-3.jpg",
+    image: ["/projects/project-3.jpg"],
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/yourusername/project",
     featured: true,
@@ -98,7 +99,7 @@ export const projects = [
     description:
       "A minimalist developer portfolio built with Next.js, featuring smooth scrolling and dark mode.",
     tech: ["Next.js", "Tailwind CSS"],
-    image: "/projects/project-4.jpg",
+    image: ["/projects/project-4.jpg"],
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/yourusername/project",
     featured: false,
