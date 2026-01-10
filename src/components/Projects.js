@@ -125,7 +125,7 @@ function ProjectCard({ project }) {
     <article className="project-card group glass-card overflow-hidden opacity-0">
       {/* Project Image / Carousel */}
       <div className="aspect-video relative overflow-hidden bg-card">
-        {images.length > 1 ? (
+        {images.length > 0 ? (
           <ImageCarousel images={images} />
         ) : images.length === 1 ? (
           <>
