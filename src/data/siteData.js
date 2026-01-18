@@ -76,7 +76,7 @@ export const projects = [
     title: "Authenticated login/Registration Portal",
     description:
       "Created a login/registration portal with authentication using firebase. Implemented other ways to login/register such as google. Also implemented protected routing for secure and seamless user experience.",
-    tech: ["Next.js", "React","Firebase", "User Authentication", "Tailwind CSS"],
+    tech: ["Next.js", "React", "Firebase", "User Authentication", "Tailwind CSS"],
     image: ["/projects/authLoginAndRegistration/authLoginAndRegistration-1.png", "/projects/authLoginAndRegistration/authLoginAndRegistration-2.png"],
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/yourusername/project",
