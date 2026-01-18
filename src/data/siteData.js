@@ -66,7 +66,7 @@ export const projects = [
     description:
       "Visualize your business statistics though an interactive dashboard.",
     tech: ["Next.js", "Tailwind CSS", "Chart.js", "REST API"],
-    image: ["/projects/insightBoard/insightBoard.png"],
+    image: ["/projects/insightBoard.png"],
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/JaiminMoradiya23/Insight-board-dashboard",
     featured: true,
