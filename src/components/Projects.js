@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/data/siteData";
 import ImageCarousel from "@/components/ui/ImageCarousel";
+import TruncatedText from "@/components/ui/TruncatedText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -162,9 +163,11 @@ function ProjectCard({ project }) {
           {project.title}
         </h3>
 
-        <p className="text-muted text-sm mb-5 line-clamp-2">
-          {project.description}
-        </p>
+        <TruncatedText 
+          text={project.description}
+          lines={2}
+          className="text-muted text-sm mb-5"
+        />
 
         {/* Tech Stack */}
         <div className="flex flex-wrap gap-2 mb-6">
