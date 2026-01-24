@@ -14,7 +14,7 @@ export const personalInfo = {
 
 export const socialLinks = {
   github: "https://github.com/JaiminMoradiya23",
-  linkedin: "https://linkedin.com/in/yourusername",
+  linkedin: "https://linkedin.com/in/jaimin-moradiya",
   twitter: "https://twitter.com/yourusername",
   email: "mailto:jaiminmoradiya23@gmail.com",
 };
@@ -54,7 +54,6 @@ export const skills = {
     "REST APIs",
     "Performance Optimization",
     "SEO Best Practices",
-    "Accessibility (a11y)",
   ],
 };
 
@@ -67,7 +66,7 @@ export const projects = [
       "Visualize your business statistics though an interactive dashboard.",
     tech: ["Next.js", "Tailwind CSS", "Chart.js", "REST API"],
     image: ["/projects/insightBoard.png"],
-    liveUrl: "https://example.com",
+    liveUrl: "",
     githubUrl: "https://github.com/JaiminMoradiya23/Insight-board-dashboard",
     featured: true,
   },
@@ -78,7 +77,7 @@ export const projects = [
       "Created a login/registration portal with authentication using firebase. Implemented other ways to login/register such as google. Also implemented protected routing for secure and seamless user experience.",
     tech: ["Next.js", "React", "Firebase", "User Authentication", "Tailwind CSS"],
     image: ["/projects/authLoginAndRegistration/authLoginAndRegistration-1.png", "/projects/authLoginAndRegistration/authLoginAndRegistration-2.png"],
-    liveUrl: "https://example.com",
+    liveUrl: "",
     githubUrl: "https://github.com/yourusername/project",
     featured: true,
   },
@@ -89,7 +88,7 @@ export const projects = [
       "A multi step form with validation and with creative & professional design.",
     tech: ["React", "Next.js", "JavaScript", "Tailwind CSS", "Tailwind UI"],
     image: ["/projects/dynamicStepperForm/dynamicStepperForm-1.png", "/projects/dynamicStepperForm/dynamicStepperForm-2.png", "/projects/dynamicStepperForm/dynamicStepperForm-3.png", "/projects/dynamicStepperForm/dynamicStepperForm-4.png"],
-    liveUrl: "https://example.com",
+    liveUrl: "",
     githubUrl: "https://github.com/yourusername/project",
     featured: true,
   },
@@ -100,7 +99,7 @@ export const projects = [
       "A minimalist developer portfolio built with Next.js, featuring smooth scrolling and dark mode.",
     tech: ["Next.js", "Tailwind CSS"],
     image: ["/projects/project-4.jpg"],
-    liveUrl: "https://example.com",
+    liveUrl: "",
     githubUrl: "https://github.com/yourusername/project",
     featured: false,
   },
