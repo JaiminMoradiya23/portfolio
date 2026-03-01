@@ -1,27 +1,76 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function ImageCarousel({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showSwipeHint, setShowSwipeHint] = useState(true);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  // Hide swipe hint after 3 seconds or on first interaction
+  useEffect(() => {
+    if (images.length <= 1) return;
+    
+    const timer = setTimeout(() => {
+      setShowSwipeHint(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [images.length]);
+
+  const hideHintAndNavigate = (callback) => {
+    setShowSwipeHint(false);
+    callback();
+  };
 
   const goToPrevious = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
+    setShowSwipeHint(false);
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   const goToNext = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
+    setShowSwipeHint(false);
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
   const goToSlide = (index, e) => {
     e.stopPropagation();
+    setShowSwipeHint(false);
     setCurrentIndex(index);
   };
 
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const diff = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 50;
+
+    if (Math.abs(diff) > minSwipeDistance) {
+      setShowSwipeHint(false);
+      if (diff > 0) {
+        goToNext();
+      } else {
+        goToPrevious();
+      }
+    }
+  };
+
   return (
-    <div className="absolute inset-0">
+    <div 
+      className="absolute inset-0"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Images */}
       <div className="relative w-full h-full">
         {images.map((image, index) => (
@@ -37,13 +86,35 @@ export default function ImageCarousel({ images }) {
         ))}
       </div>
 
+      {/* Swipe Hint - only on mobile, fades out after 3s or on interaction */}
+      {images.length > 1 && (
+        <div 
+          className={`sm:hidden absolute inset-0 flex items-center justify-center pointer-events-none z-10 transition-opacity duration-500 ${
+            showSwipeHint ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-background/80 backdrop-blur-sm border border-border">
+            {/* Swipe icon with animation */}
+            <svg 
+              className="w-4 h-4 text-foreground animate-swipe-hint" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+            <span className="text-xs text-foreground font-medium">Swipe</span>
+          </div>
+        </div>
+      )}
+
       {/* Navigation Controls - only show if multiple images */}
       {images.length > 1 && (
         <>
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - visible on mobile, hover on desktop */}
           <button
             onClick={goToPrevious}
-            className="absolute left-1.5 sm:left-2 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center text-foreground hover:bg-accent hover:border-accent hover:text-background transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+            className="absolute left-1.5 sm:left-2 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center text-foreground hover:bg-accent hover:border-accent hover:text-background transition-all duration-300 opacity-70 sm:opacity-0 sm:-translate-x-2 sm:group-hover:opacity-100 sm:group-hover:translate-x-0"
             aria-label="Previous image"
           >
             <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,36 +124,36 @@ export default function ImageCarousel({ images }) {
 
           <button
             onClick={goToNext}
-            className="absolute right-1.5 sm:right-2 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center text-foreground hover:bg-accent hover:border-accent hover:text-background transition-all duration-300 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+            className="absolute right-1.5 sm:right-2 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center text-foreground hover:bg-accent hover:border-accent hover:text-background transition-all duration-300 opacity-70 sm:opacity-0 sm:translate-x-2 sm:group-hover:opacity-100 sm:group-hover:translate-x-0"
             aria-label="Next image"
           >
             <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
+
+          {/* Dots Indicator - visible on mobile, hover on desktop */}
+          <div className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-full bg-background/60 backdrop-blur-sm transition-all duration-300 opacity-100 sm:opacity-0 sm:translate-y-2 sm:group-hover:opacity-100 sm:group-hover:translate-y-0">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={(e) => goToSlide(index, e)}
+                className={`h-1.5 sm:h-1.5 rounded-full transition-all duration-300 ${
+                  index === currentIndex 
+                    ? "bg-accent w-4 sm:w-4" 
+                    : "bg-foreground/50 hover:bg-foreground/80 w-1.5 sm:w-1.5"
+                }`}
+                aria-label={`Go to image ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Image Counter - visible on mobile, hover on desktop */}
+          <div className="absolute top-2 sm:top-3 right-2 sm:right-3 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md bg-background/60 backdrop-blur-sm text-[10px] sm:text-xs text-foreground transition-all duration-300 opacity-100 sm:opacity-0 sm:-translate-y-2 sm:group-hover:opacity-100 sm:group-hover:translate-y-0">
+            {currentIndex + 1} / {images.length}
+          </div>
         </>
       )}
-
-      {/* Dots Indicator - show on card hover */}
-      <div className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-full bg-background/60 backdrop-blur-sm transition-all duration-300 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={(e) => goToSlide(index, e)}
-            className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full transition-all duration-300 ${
-              index === currentIndex 
-                ? "bg-accent w-3 sm:w-4" 
-                : "bg-foreground/50 hover:bg-foreground/80"
-            }`}
-            aria-label={`Go to image ${index + 1}`}
-          />
-        ))}
-      </div>
-
-      {/* Image Counter - show on card hover */}
-      <div className="absolute top-2 sm:top-3 right-2 sm:right-3 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md bg-background/60 backdrop-blur-sm text-[10px] sm:text-xs text-foreground transition-all duration-300 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0">
-        {currentIndex + 1} / {images.length}
-      </div>
     </div>
   );
 }
