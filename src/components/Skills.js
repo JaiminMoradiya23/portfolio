@@ -110,33 +110,33 @@ export default function Skills() {
 
   return (
     <section id="skills" className="section" ref={sectionRef}>
-      <div className="container">
+      <div className="container px-4 sm:px-6">
         {/* Section Header */}
-        <div ref={headerRef} className="max-w-2xl mb-16">
-          <div className="flex items-center gap-3 mb-6 opacity-0">
-            <span className="text-accent text-sm font-medium tracking-wide uppercase">
+        <div ref={headerRef} className="max-w-2xl mb-8 sm:mb-12 md:mb-16">
+          <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 opacity-0">
+            <span className="text-accent text-xs sm:text-sm font-medium tracking-wide uppercase">
               Skills
             </span>
             <span className="flex-1 h-px bg-border max-w-24" />
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium opacity-0">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium opacity-0">
             Technologies I Work With
           </h2>
         </div>
 
         {/* Skills Grid */}
-        <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={cardsRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {skillCategories.map((category) => (
             <div
               key={category.key}
-              className="skill-card glass-card p-8 opacity-0"
+              className="skill-card glass-card p-5 sm:p-6 md:p-8 opacity-0"
             >
               {/* Category Header */}
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
+              <div className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-6 md:mb-8">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
                   <svg
-                    className="w-6 h-6"
+                    className="w-5 h-5 sm:w-6 sm:h-6"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -144,18 +144,18 @@ export default function Skills() {
                     {icons[category.icon]}
                   </svg>
                 </div>
-                <h3 className="text-lg font-medium">{category.label}</h3>
+                <h3 className="text-base sm:text-lg font-medium">{category.label}</h3>
               </div>
 
               {/* Skills List */}
-              <ul className="space-y-4">
+              <ul className="space-y-3 sm:space-y-4">
                 {skills[category.key].map((skill, index) => (
                   <li
                     key={index}
-                    className="skill-item flex items-center gap-3 text-muted group opacity-0"
+                    className="skill-item flex items-center gap-2 sm:gap-3 text-muted group opacity-0"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent/50 group-hover:bg-accent transition-colors" />
-                    <span className="group-hover:text-foreground transition-colors">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent/50 group-hover:bg-accent transition-colors shrink-0" />
+                    <span className="text-sm sm:text-base group-hover:text-foreground transition-colors">
                       {skill}
                     </span>
                   </li>

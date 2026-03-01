@@ -118,22 +118,22 @@ export default function About() {
 
   return (
     <section id="about" className="section" ref={sectionRef}>
-      <div className="container">
+      <div className="container px-4 sm:px-6">
         {/* Section Divider */}
         <div
           ref={dividerRef}
-          className="divider mb-16 origin-left"
+          className="divider mb-8 sm:mb-12 md:mb-16 origin-left"
           style={{ transform: "scaleX(0)" }}
         />
 
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24">
           {/* Left Column - Label & Heading */}
           <div>
             <div
               ref={labelRef}
-              className="flex items-center gap-3 mb-6 opacity-0"
+              className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 opacity-0"
             >
-              <span className="text-accent text-sm font-medium tracking-wide uppercase">
+              <span className="text-accent text-xs sm:text-sm font-medium tracking-wide uppercase">
                 About
               </span>
               <span className="flex-1 h-px bg-border" />
@@ -141,7 +141,7 @@ export default function About() {
 
             <h2
               ref={headingRef}
-              className="text-3xl md:text-4xl lg:text-5xl font-medium leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium leading-tight"
             >
               {splitWords(aboutContent.heading)}
             </h2>
@@ -151,7 +151,7 @@ export default function About() {
           <div>
             <div
               ref={paragraphsRef}
-              className="space-y-6 text-muted text-lg leading-relaxed"
+              className="space-y-4 sm:space-y-6 text-muted text-base sm:text-lg leading-relaxed"
             >
               {aboutContent.paragraphs.map((paragraph, index) => (
                 <p key={index} className="opacity-0">
@@ -163,16 +163,16 @@ export default function About() {
             {/* Highlights */}
             <div
               ref={highlightsRef}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10"
             >
               {aboutContent.highlights.map((highlight, index) => (
                 <div
                   key={index}
-                  className="highlight-item flex items-center gap-3 group opacity-0"
+                  className="highlight-item flex items-center gap-2 sm:gap-3 group opacity-0"
                 >
-                  <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-accent/10 text-accent group-hover:bg-accent group-hover:text-background transition-colors">
+                  <span className="w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center rounded-lg bg-accent/10 text-accent group-hover:bg-accent group-hover:text-background transition-colors">
                     <svg
-                      className="w-4 h-4"
+                      className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -185,7 +185,7 @@ export default function About() {
                       />
                     </svg>
                   </span>
-                  <span className="text-foreground">{highlight}</span>
+                  <span className="text-sm sm:text-base text-foreground">{highlight}</span>
                 </div>
               ))}
             </div>

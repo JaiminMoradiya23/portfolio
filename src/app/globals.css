@@ -48,9 +48,9 @@ html.lenis, html.lenis body {
   --gradient-text: linear-gradient(135deg, #fafafa 0%, #a1a1aa 100%);
   --gradient-accent: linear-gradient(135deg, #10b981 0%, #059669 100%);
   
-  /* Spacing */
-  --container-padding: clamp(1.5rem, 5vw, 6rem);
-  --section-gap: clamp(6rem, 15vh, 10rem);
+  /* Spacing - Mobile First */
+  --container-padding: clamp(1rem, 4vw, 6rem);
+  --section-gap: clamp(4rem, 10vh, 10rem);
 }
 
 @theme inline {
@@ -160,12 +160,20 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.75rem;
-  font-size: 0.875rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   border-radius: 9999px;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .btn {
+    padding: 0.875rem 1.75rem;
+    font-size: 0.875rem;
+  }
 }
 
 .btn-primary {

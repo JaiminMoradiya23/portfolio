@@ -69,7 +69,7 @@ export default function Header() {
             : "bg-transparent"
         }`}
       >
-        <div className="container">
+        <div className="container px-4 sm:px-6">
           <nav className="flex items-center justify-between h-14 sm:h-16 md:h-20">
             {/* Logo */}
             <a
@@ -167,14 +167,14 @@ export default function Header() {
             : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="container h-full flex flex-col justify-center px-6">
-          <nav className="space-y-1 sm:space-y-2">
+        <div className="container h-full flex flex-col justify-center px-4 sm:px-6">
+          <nav className="space-y-0.5 sm:space-y-1 md:space-y-2">
             {navLinks.map((link, index) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={closeMobileMenu}
-                className={`block text-3xl sm:text-4xl md:text-5xl font-medium text-muted hover:text-foreground hover:translate-x-2 transition-all duration-300 py-2 sm:py-3 ${
+                className={`block text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-medium text-muted hover:text-foreground hover:translate-x-2 transition-all duration-300 py-1.5 sm:py-2 md:py-3 ${
                   isMobileMenuOpen 
                     ? "translate-y-0 opacity-100" 
                     : "translate-y-8 opacity-0"
@@ -190,7 +190,7 @@ export default function Header() {
 
           {/* Mobile Footer */}
           <div
-            className={`mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-border transition-all duration-500 ${
+            className={`mt-8 sm:mt-12 md:mt-16 pt-4 sm:pt-6 md:pt-8 border-t border-border transition-all duration-500 ${
               isMobileMenuOpen 
                 ? "translate-y-0 opacity-100" 
                 : "translate-y-8 opacity-0"
@@ -199,16 +199,16 @@ export default function Header() {
               transitionDelay: isMobileMenuOpen ? `${navLinks.length * 50 + 100}ms` : "0ms",
             }}
           >
-            <p className="text-xs sm:text-sm text-muted mb-3 sm:mb-4">Ready to collaborate?</p>
+            <p className="text-[10px] sm:text-xs md:text-sm text-muted mb-2 sm:mb-3 md:mb-4">Ready to collaborate?</p>
             <a
               href="#contact"
               onClick={closeMobileMenu}
-              className="inline-flex items-center gap-3 text-xl sm:text-2xl font-medium text-foreground hover:text-accent transition-colors group"
+              className="inline-flex items-center gap-2 sm:gap-3 text-lg sm:text-xl md:text-2xl font-medium text-foreground hover:text-accent transition-colors group"
             >
               Let&apos;s Talk
-              <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent flex items-center justify-center group-hover:translate-x-1 transition-transform">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full bg-accent flex items-center justify-center group-hover:translate-x-1 transition-transform">
                 <svg 
-                  className="w-4 h-4 sm:w-5 sm:h-5 text-background" 
+                  className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-background" 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"

@@ -77,39 +77,39 @@ export default function Projects() {
 
   return (
     <section id="projects" className="section" ref={sectionRef}>
-      <div className="container">
+      <div className="container px-4 sm:px-6">
         {/* Section Divider */}
         <div
           ref={dividerRef}
-          className="divider mb-16 origin-left"
+          className="divider mb-8 sm:mb-12 md:mb-16 origin-left"
           style={{ transform: "scaleX(0)" }}
         />
 
         {/* Section Header */}
         <div
           ref={headerRef}
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16"
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6 mb-8 sm:mb-12 md:mb-16"
         >
           <div className="max-w-2xl">
-            <div className="header-animate flex items-center gap-3 mb-6 opacity-0">
-              <span className="text-accent text-sm font-medium tracking-wide uppercase">
+            <div className="header-animate flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 opacity-0">
+              <span className="text-accent text-xs sm:text-sm font-medium tracking-wide uppercase">
                 Projects
               </span>
               <span className="flex-1 h-px bg-border max-w-24" />
             </div>
 
-            <h2 className="header-animate text-3xl md:text-4xl lg:text-5xl font-medium mb-4 opacity-0">
+            <h2 className="header-animate text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium mb-3 sm:mb-4 opacity-0">
               Selected Work
             </h2>
 
-            <p className="header-animate text-muted text-lg opacity-0">
+            <p className="header-animate text-muted text-base sm:text-lg opacity-0">
               Projects that showcase my skills in building modern web experiences.
             </p>
           </div>
         </div>
 
         {/* Projects Grid */}
-        <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {displayProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
@@ -138,9 +138,9 @@ function ProjectCard({ project }) {
           </>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
               <svg
-                className="w-8 h-8"
+                className="w-6 h-6 sm:w-8 sm:h-8"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -158,45 +158,45 @@ function ProjectCard({ project }) {
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <h3 className="text-lg font-medium mb-3 group-hover:text-accent transition-colors">
+      <div className="p-4 sm:p-5 md:p-6">
+        <h3 className="text-base sm:text-lg font-medium mb-2 sm:mb-3 group-hover:text-accent transition-colors">
           {project.title}
         </h3>
 
         <TruncatedText 
           text={project.description}
           lines={2}
-          className="text-muted text-sm mb-5"
+          className="text-muted text-xs sm:text-sm mb-4 sm:mb-5"
         />
 
         {/* Tech Stack */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
           {project.tech.slice(0, 3).map((tech, index) => (
             <span
               key={index}
-              className="text-xs px-3 py-1.5 rounded-full bg-card border border-border text-muted"
+              className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-card border border-border text-muted"
             >
               {tech}
             </span>
           ))}
           {project.tech.length > 3 && (
-            <span className="text-xs px-3 py-1.5 rounded-full bg-card border border-border text-muted">
+            <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-card border border-border text-muted">
               +{project.tech.length - 3}
             </span>
           )}
         </div>
 
         {/* Links */}
-        <div className="flex items-center gap-4 pt-4 border-t border-border">
+        <div className="flex items-center gap-3 sm:gap-4 pt-3 sm:pt-4 border-t border-border">
           {project.liveUrl && (
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors"
+              className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted hover:text-accent transition-colors"
             >
               <svg
-                className="w-4 h-4"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -216,9 +216,9 @@ function ProjectCard({ project }) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors"
+              className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted hover:text-accent transition-colors"
             >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
               </svg>
               Code

@@ -6,7 +6,8 @@ export const personalInfo = {
   name: "Jaimin",
   role: "Frontend Developer",
   tagline:
-    "I craft fast, scalable, and immersive digital experiences that merge creativity with engineering precision.",
+    "I help businesses increase conversions with responsive, SEO-optimized frontend solutions.",
+    // "I craft fast, scalable, and immersive digital experiences that merge creativity with engineering precision.",
   email: "jaiminmoradiya23@gmail.com",
   location: "India",
   availability: "Available for freelance",
