@@ -79,7 +79,7 @@ export const projects = [
     tech: ["Next.js", "React", "Firebase", "User Authentication", "Tailwind CSS"],
     image: ["/projects/authLoginAndRegistration/authLoginAndRegistration-1.png", "/projects/authLoginAndRegistration/authLoginAndRegistration-2.png"],
     liveUrl: "",
-    githubUrl: "https://github.com/yourusername/project",
+    githubUrl: "https://github.com/JaiminMoradiya23/auth-login-register-with-firebase",
     featured: true,
   },
   {
@@ -90,7 +90,7 @@ export const projects = [
     tech: ["React", "Next.js", "JavaScript", "Tailwind CSS", "Tailwind UI"],
     image: ["/projects/dynamicStepperForm/dynamicStepperForm-1.png", "/projects/dynamicStepperForm/dynamicStepperForm-2.png", "/projects/dynamicStepperForm/dynamicStepperForm-3.png", "/projects/dynamicStepperForm/dynamicStepperForm-4.png"],
     liveUrl: "",
-    githubUrl: "https://github.com/yourusername/project",
+    githubUrl: "https://github.com/JaiminMoradiya23/dynamic-stepper-form",
     featured: true,
   },
   {

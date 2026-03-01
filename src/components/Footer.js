@@ -65,9 +65,17 @@ export default function Footer() {
                   href={socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs sm:text-sm text-muted hover:text-foreground transition-colors"
+                  className="group inline-flex items-center gap-1.5 text-xs sm:text-sm text-muted hover:text-foreground transition-colors"
                 >
                   GitHub
+                  <svg
+                    className="w-3 h-3 text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7v10" />
+                  </svg>
                 </a>
               </li>
               <li>
@@ -75,9 +83,17 @@ export default function Footer() {
                   href={socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs sm:text-sm text-muted hover:text-foreground transition-colors"
+                  className="group inline-flex items-center gap-1.5 text-xs sm:text-sm text-muted hover:text-foreground transition-colors"
                 >
                   LinkedIn
+                  <svg
+                    className="w-3 h-3 text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7v10" />
+                  </svg>
                 </a>
               </li>
               <li>
