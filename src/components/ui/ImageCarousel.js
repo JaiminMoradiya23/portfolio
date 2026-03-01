@@ -1,44 +1,24 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 export default function ImageCarousel({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showSwipeHint, setShowSwipeHint] = useState(true);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
-  // Hide swipe hint after 3 seconds or on first interaction
-  useEffect(() => {
-    if (images.length <= 1) return;
-    
-    const timer = setTimeout(() => {
-      setShowSwipeHint(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [images.length]);
-
-  const hideHintAndNavigate = (callback) => {
-    setShowSwipeHint(false);
-    callback();
-  };
-
   const goToPrevious = (e) => {
     if (e) e.stopPropagation();
-    setShowSwipeHint(false);
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   const goToNext = (e) => {
     if (e) e.stopPropagation();
-    setShowSwipeHint(false);
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
   const goToSlide = (index, e) => {
     e.stopPropagation();
-    setShowSwipeHint(false);
     setCurrentIndex(index);
   };
 
@@ -55,7 +35,6 @@ export default function ImageCarousel({ images }) {
     const minSwipeDistance = 50;
 
     if (Math.abs(diff) > minSwipeDistance) {
-      setShowSwipeHint(false);
       if (diff > 0) {
         goToNext();
       } else {
@@ -85,28 +64,6 @@ export default function ImageCarousel({ images }) {
           />
         ))}
       </div>
-
-      {/* Swipe Hint - only on mobile, fades out after 3s or on interaction */}
-      {images.length > 1 && (
-        <div 
-          className={`sm:hidden absolute inset-0 flex items-center justify-center pointer-events-none z-10 transition-opacity duration-500 ${
-            showSwipeHint ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-background/80 backdrop-blur-sm border border-border">
-            {/* Swipe icon with animation */}
-            <svg 
-              className="w-4 h-4 text-foreground animate-swipe-hint" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-            </svg>
-            <span className="text-xs text-foreground font-medium">Swipe</span>
-          </div>
-        </div>
-      )}
 
       {/* Navigation Controls - only show if multiple images */}
       {images.length > 1 && (
