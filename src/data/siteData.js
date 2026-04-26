@@ -62,13 +62,18 @@ export const skills = {
 export const projects = [
   {
     id: 1,
-    title: "InsightBoard Interactive Dashboard",
+    title: "Dynamic Form Builder",
     description:
-      "Visualize your business statistics though an interactive dashboard.",
-    tech: ["Next.js", "Tailwind CSS", "Chart.js", "REST API"],
-    image: ["/projects/insightBoard.png"],
-    liveUrl: "",
-    githubUrl: "https://github.com/JaiminMoradiya23/Insight-board-dashboard",
+      'A multi-page SaaS Dynamic Form Builder that enables users to create custom forms through a drag-and-drop interface.',
+    tech: ["Next.js", "Tailwind CSS", "Redux Toolkit", "Headless UI", "React Hook Form", "Framer Motion", "dnd-kit"],
+    image: [
+      "/projects/dynamicFormBuilder/dashboard-1.png",
+      "/projects/dynamicFormBuilder/form-builder-1.png",
+      "/projects/dynamicFormBuilder/preview-form-1.png",
+      "/projects/dynamicFormBuilder/export-react-1.png"
+    ],
+    liveUrl: "https://dynamic-form-builder-lemon.vercel.app",
+    githubUrl: "https://github.com/JaiminMoradiya23/dynamic-form-builder",
     featured: true,
   },
   {
@@ -77,7 +82,10 @@ export const projects = [
     description:
       "Created a login/registration portal with authentication using firebase. Implemented other ways to login/register such as google. Also implemented protected routing for secure and seamless user experience.",
     tech: ["Next.js", "React", "Firebase", "User Authentication", "Tailwind CSS"],
-    image: ["/projects/authLoginAndRegistration/authLoginAndRegistration-1.png", "/projects/authLoginAndRegistration/authLoginAndRegistration-2.png"],
+    image: [
+      "/projects/authLoginAndRegistration/authLoginAndRegistration-1.png",
+      "/projects/authLoginAndRegistration/authLoginAndRegistration-2.png"
+    ],
     liveUrl: "",
     githubUrl: "https://github.com/JaiminMoradiya23/auth-login-register-with-firebase",
     featured: true,
@@ -88,13 +96,28 @@ export const projects = [
     description:
       "A multi step form with validation and with creative & professional design.",
     tech: ["React", "Next.js", "JavaScript", "Tailwind CSS", "Tailwind UI"],
-    image: ["/projects/dynamicStepperForm/dynamicStepperForm-1.png", "/projects/dynamicStepperForm/dynamicStepperForm-2.png", "/projects/dynamicStepperForm/dynamicStepperForm-3.png", "/projects/dynamicStepperForm/dynamicStepperForm-4.png"],
+    image: [
+      "/projects/dynamicStepperForm/dynamicStepperForm-1.png",
+      "/projects/dynamicStepperForm/dynamicStepperForm-2.png",
+      "/projects/dynamicStepperForm/dynamicStepperForm-3.png",
+      "/projects/dynamicStepperForm/dynamicStepperForm-4.png"],
     liveUrl: "",
     githubUrl: "https://github.com/JaiminMoradiya23/dynamic-stepper-form",
     featured: true,
   },
   {
     id: 4,
+    title: "InsightBoard Interactive Dashboard",
+    description:
+    "Visualize your business statistics though an interactive dashboard.",
+    tech: ["Next.js", "Tailwind CSS", "Chart.js", "REST API"],
+    image: ["/projects/insightBoard.png"],
+    liveUrl: "",
+    githubUrl: "https://github.com/JaiminMoradiya23/Insight-board-dashboard",
+    featured: false,
+  },
+  {
+    id: 5,
     title: "Portfolio Website",
     description:
       "A minimalist developer portfolio built with Next.js, featuring smooth scrolling and dark mode.",
